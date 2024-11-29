@@ -19,6 +19,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return this.productName + ": " + this.productCost+" руб.";
+        return this.productName + ": " + this.productCost + " руб.";
     }
 }

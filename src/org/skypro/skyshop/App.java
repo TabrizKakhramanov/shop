@@ -9,10 +9,10 @@ public class App {
 
         basket.addProduct("Вода", 55);
         basket.addProduct("Морковка", 16);
-        basket.addProduct("Говяжья вырезка",990);
+        basket.addProduct("Говяжья вырезка", 990);
         basket.addProduct("Лавровый лист", 40);
         basket.addProduct("Редиска", 70);
-        basket.addProduct("Проверка",0);
+        basket.addProduct("Проверка", 0);
 
         basket.printAllProductsInfo();
         System.out.println(basket.basketCost());

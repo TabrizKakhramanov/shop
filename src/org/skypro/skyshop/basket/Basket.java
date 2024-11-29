@@ -3,7 +3,7 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 public class Basket {
-    Product[] productBasket;
+    private Product[] productBasket;
     private int size;
     private static int id;
     private int idNumber;
