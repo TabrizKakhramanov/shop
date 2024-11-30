@@ -1,6 +1,9 @@
 package org.skypro.skyshop.basket;
 
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
 
 public class Basket {
     private Product[] productBasket;
@@ -13,21 +16,40 @@ public class Basket {
         this.size = size;
     }
 
-    public void addProduct(String name, int cost) {
+    public void addSimpleProduct(String name, int cost) {
         if (id < size) {
             this.idNumber = id;
-            productBasket[idNumber] = new Product(name, cost);
+            productBasket[idNumber] = new SimpleProduct(name, cost);
             id++;
         } else {
             System.out.println("Корзина заполнена!");
         }
     }
 
+    public void addDiscountedProduct(String name, int cost, int discount) {
+        if (id < size) {
+            this.idNumber = id;
+            productBasket[idNumber] = new DiscountedProduct(cost, discount, name);
+            id++;
+        } else {
+            System.out.println("Корзина заполнена");
+        }
+    }
+
+    public void addFixPriceProduct(String name) {
+        if (id < size) {
+            this.idNumber = id;
+            productBasket[idNumber] = new FixPriceProduct(name);
+            id++;
+        } else {
+            System.out.println("Корзина заполнена");
+        }
+    }
+
     public int basketCost() {
         int sum = 0;
         for (int i = 0; i < id; i++) {
-            Product product = productBasket[i];
-            sum += product.getProductCost();
+            sum += productBasket[i].getProductPrice();
         }
         return sum;
     }
@@ -35,7 +57,6 @@ public class Basket {
     public void printAllProductsInfo() {
         if (id > 0) {
             for (int i = 0; i < id; i++) {
-                Product product = productBasket[i];
                 System.out.println(productBasket[i].toString());
             }
         } else {
@@ -46,8 +67,7 @@ public class Basket {
     public boolean checkProduct(String name) {
         if (id > 0) {
             for (int i = 0; i < id; i++) {
-                Product product = productBasket[i];
-                if (product.getProductName().equals(name)) {
+                if (productBasket[i].getProductName().equals(name)) {
                     return true;
                 }
             }
@@ -63,6 +83,17 @@ public class Basket {
                 productBasket[i] = null;
             }
             id = 0;
+        }
+    }
+
+    public void printSpecialProductsInfo() {
+        if (id > 0) {
+            for (int i = 0; i < id; i++) {
+                if (productBasket[i].isSpecial()) {
+                    System.out.println(productBasket[i].toString());
+                }
+
+            }
         }
     }
 
