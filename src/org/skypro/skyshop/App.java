@@ -7,15 +7,18 @@ public class App {
     public static void main(String[] args) {
         Basket basket = new Basket(5);
 
-        basket.addProduct("Вода", 55);
-        basket.addProduct("Морковка", 16);
-        basket.addProduct("Говяжья вырезка", 990);
-        basket.addProduct("Лавровый лист", 40);
-        basket.addProduct("Редиска", 70);
-        basket.addProduct("Проверка", 0);
+        basket.addSimpleProduct("Вода", 55);
+        basket.addSimpleProduct("Морковка", 16);
+        basket.addDiscountedProduct("Говяжья вырезка", 990, 20);
+        basket.addDiscountedProduct("Лавровый лист", 40, 40);
+        basket.addFixPriceProduct("Редиска");
+        basket.addFixPriceProduct("Проверка");
 
         basket.printAllProductsInfo();
         System.out.println(basket.basketCost());
+
+        System.out.println();
+        basket.printSpecialProductsInfo();
 
         System.out.println(basket.checkProduct("Морковка"));
         System.out.println(basket.checkProduct("Лук"));
