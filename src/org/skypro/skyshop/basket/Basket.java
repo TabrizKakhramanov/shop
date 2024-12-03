@@ -16,6 +16,7 @@ public class Basket {
         this.size = size;
     }
 
+
     public void addSimpleProduct(String name, int cost) {
         if (id < size) {
             this.idNumber = id;
