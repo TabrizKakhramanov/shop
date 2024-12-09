@@ -28,4 +28,19 @@ public class DiscountedProduct extends Product {
     public String toString() {
         return getProductName() + ": " + getProductPrice() + " (cкидка: " + getDiscountPercent() + "%)";
     }
+
+    @Override
+    public String getObjectName() {
+        return super.getObjectName();
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return super.getSearchTerm();
+    }
+
+    @Override
+    public String getObjectType() {
+        return super.getObjectType();
+    }
 }

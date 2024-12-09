@@ -22,4 +22,19 @@ public class SimpleProduct extends Product {
     public String toString() {
         return getProductName() + ": " + getProductPrice();
     }
+
+    @Override
+    public String getSearchTerm() {
+        return super.getSearchTerm();
+    }
+
+    @Override
+    public String getObjectName() {
+        return super.getObjectName();
+    }
+
+    @Override
+    public String getObjectType() {
+        return super.getObjectType();
+    }
 }

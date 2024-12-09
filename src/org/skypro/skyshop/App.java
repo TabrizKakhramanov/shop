@@ -2,6 +2,8 @@ package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.Basket;
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
 public class App {
     public static void main(String[] args) {
@@ -14,18 +16,18 @@ public class App {
         basket.addFixPriceProduct("Редиска");
         basket.addFixPriceProduct("Проверка");
 
-        basket.printAllProductsInfo();
-        System.out.println(basket.basketCost());
+        //basket.printAllProductsInfo();
+        //System.out.println(basket.basketCost());
+        //System.out.println();
+        //basket.printSpecialProductsInfo();
+        //System.out.println(basket.checkProduct("Морковка"));
+        //System.out.println(basket.checkProduct("Лук"));
+        //basket.cleanBasket();
+        //System.out.println(basket.basketCost());
+        //System.out.println(basket.checkProduct("Морковка"));
 
-        System.out.println();
-        basket.printSpecialProductsInfo();
+        SearchEngine searchEngine = new SearchEngine(10);
 
-        System.out.println(basket.checkProduct("Морковка"));
-        System.out.println(basket.checkProduct("Лук"));
-
-        basket.cleanBasket();
-        System.out.println(basket.basketCost());
-        System.out.println(basket.checkProduct("Морковка"));
 
     }
 }
