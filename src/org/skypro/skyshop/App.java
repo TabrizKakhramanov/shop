@@ -77,6 +77,14 @@ public class App {
         System.out.println(Arrays.toString(searchEngine.search("banana")));
         System.out.println(Arrays.toString(searchEngine.search("milk")));
 
+        //проверка работы выброса исключений
+        SimpleProduct potato = new SimpleProduct(" ", -10);
+        DiscountedProduct pen = new DiscountedProduct("", 0,120);
+
+        //проверка работы метода поиска лучшего результата
+        System.out.println(searchEngine.searchTheBest("banana").toString());
+        System.out.println(searchEngine.searchTheBest("jeans").toString());
+
 
     }
 }
