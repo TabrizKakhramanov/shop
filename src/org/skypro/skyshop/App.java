@@ -2,6 +2,7 @@ package org.skypro.skyshop;
 
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.exceptions.BestResultNotFound;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
@@ -15,14 +16,14 @@ public class App {
         ProductBasket productBasket = new ProductBasket();
 
         //добавление продукта в корзину
-        productBasket.addProduct("milk",90);
-        productBasket.addProduct("chocolate",60);
-        productBasket.addDiscountedProduct("water",40,15);
+        productBasket.addProduct("milk", 90);
+        productBasket.addProduct("chocolate", 60);
+        productBasket.addDiscountedProduct("water", 40, 15);
         productBasket.addFixPriceProduct("tomatoes");
-        productBasket.addProduct("meat",650);
+        productBasket.addProduct("meat", 650);
 
         //добавление продукта в заполненную корзину
-        productBasket.addProduct("juice",80);
+        productBasket.addProduct("juice", 80);
 
         //печать содержимого корзины
         productBasket.printAllProducts();
@@ -52,9 +53,9 @@ public class App {
         SearchEngine searchEngine = new SearchEngine(10);
 
         //создаем объекты классов наследников Product
-        SimpleProduct milk = new SimpleProduct("milk",90);
-        SimpleProduct milk2 = new SimpleProduct("milk2",190);
-        SimpleProduct milk3 = new SimpleProduct("milk3",290);
+        SimpleProduct milk = new SimpleProduct("milk", 90);
+        SimpleProduct milk2 = new SimpleProduct("milk2", 190);
+        SimpleProduct milk3 = new SimpleProduct("milk3", 290);
         FixPriceProduct banana = new FixPriceProduct("banana");
         DiscountedProduct chocolate = new DiscountedProduct("chocolate", 90, 30);
 
@@ -79,12 +80,18 @@ public class App {
 
         //проверка работы выброса исключений
         SimpleProduct potato = new SimpleProduct(" ", -10);
-        DiscountedProduct pen = new DiscountedProduct("", 0,120);
+        DiscountedProduct pen = new DiscountedProduct("", 0, 120);
 
         //проверка работы метода поиска лучшего результата
-        System.out.println(searchEngine.searchTheBest("banana").toString());
-        System.out.println(searchEngine.searchTheBest("jeans").toString());
-
-
+        try {
+            System.out.println(searchEngine.searchTheBest("banana").toString());
+        } catch (BestResultNotFound e) {
+            System.out.println("Нет совпадений!");
+        }
+        try {
+            System.out.println(searchEngine.searchTheBest("jeans").toString());
+        } catch (BestResultNotFound e) {
+            System.out.println("Нет совпадений!");
+        }
     }
 }

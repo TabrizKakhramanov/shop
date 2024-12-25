@@ -1,27 +1,26 @@
 package org.skypro.skyshop.product;
 
-public class DiscountedProduct extends Product{
+public class DiscountedProduct extends Product {
     private int productPrice;
     private int discount;
 
-    public DiscountedProduct(String productName, int productPrice, int discount){
+    public DiscountedProduct(String productName, int productPrice, int discount) {
         super(productName);
-        if(productPrice>0){
-            this.productPrice= productPrice;
-        }else{
+        if (productPrice > 0) {
+            this.productPrice = productPrice;
+        } else {
             try {
                 throw new IllegalArgumentException();
-            }
-            catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println("Цена продукта должна быть больше 0!");
             }
         }
-        if (discount>=0&&discount<=100){
-            this.discount=discount;
-        }else{
+        if (discount >= 0 && discount <= 100) {
+            this.discount = discount;
+        } else {
             try {
                 throw new IllegalArgumentException();
-            }catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println("Скидка должна быть в диапазоне от 0% до 100%!");
             }
         }
@@ -29,7 +28,7 @@ public class DiscountedProduct extends Product{
 
     @Override
     public int getProductPrice() {
-        return productPrice*(100-discount)/100;
+        return productPrice * (100 - discount) / 100;
     }
 
     public int getDiscount() {
@@ -38,7 +37,7 @@ public class DiscountedProduct extends Product{
 
     @Override
     public String toString() {
-        return getProductName()+": "+getProductPrice()+" скидка: "+getDiscount()+"%";
+        return getProductName() + ": " + getProductPrice() + " скидка: " + getDiscount() + "%";
     }
 
     @Override

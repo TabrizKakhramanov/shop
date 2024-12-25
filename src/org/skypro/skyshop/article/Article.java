@@ -6,14 +6,14 @@ public class Article implements Searchable {
     private String articleName;
     private String articleContent;
 
-    public Article(String articleName, String articleContent){
-        this.articleName=articleName;
-        this.articleContent=articleContent;
+    public Article(String articleName, String articleContent) {
+        this.articleName = articleName;
+        this.articleContent = articleContent;
     }
 
     @Override
     public String toString() {
-        return articleName+ " "+articleContent;
+        return articleName + " " + articleContent;
     }
 
     @Override
