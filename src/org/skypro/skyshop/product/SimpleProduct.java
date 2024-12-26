@@ -8,11 +8,7 @@ public class SimpleProduct extends Product {
         if (productPrice > 0) {
             this.productPrice = productPrice;
         } else {
-            try {
-                throw new IllegalArgumentException();
-            } catch (IllegalArgumentException e) {
-                System.out.println("Цена должна быть больше 0!");
-            }
+            throw new IllegalArgumentException("Цена должна быть больше 0!");
         }
     }
 

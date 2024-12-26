@@ -79,8 +79,16 @@ public class App {
         System.out.println(Arrays.toString(searchEngine.search("milk")));
 
         //проверка работы выброса исключений
-        SimpleProduct potato = new SimpleProduct(" ", -10);
-        DiscountedProduct pen = new DiscountedProduct("", 0, 120);
+        try {
+            SimpleProduct potato = new SimpleProduct("  ", 100);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+        try {
+            DiscountedProduct pen = new DiscountedProduct("Pen", 9, 120);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
 
         //проверка работы метода поиска лучшего результата
         try {
