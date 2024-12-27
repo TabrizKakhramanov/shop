@@ -38,7 +38,7 @@ public class App {
         System.out.println(productBasket.checkProductByName("alcohol"));
 
         //очистка корзины
-        productBasket.cleanProductBasket();
+        //productBasket.cleanProductBasket();
 
         //печать содержимого пустой корзины
         productBasket.printAllProducts();
@@ -74,9 +74,6 @@ public class App {
         searchEngine.add(article1);
         searchEngine.add(article2);
 
-        //проверка поиска
-        System.out.println(Arrays.toString(searchEngine.search("banana")));
-        System.out.println(Arrays.toString(searchEngine.search("milk")));
 
         //проверка работы выброса исключений
         try {
@@ -101,5 +98,15 @@ public class App {
         } catch (BestResultNotFound e) {
             System.out.println("Нет совпадений!");
         }
+
+        System.out.println("Задания с листами.");
+
+        //проверка удаления конкретного товара в корзине
+        System.out.println(productBasket.removeProductsByName("milk"));
+        System.out.println(productBasket.removeProductsByName("alcohol"));
+
+        //проверка поиска
+        System.out.println(searchEngine.search("chocolate"));
+        System.out.println(searchEngine.search("milk"));
     }
 }
