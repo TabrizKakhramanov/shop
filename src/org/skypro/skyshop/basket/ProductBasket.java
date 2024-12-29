@@ -22,34 +22,31 @@ public class ProductBasket {
     }
 
     public void addDiscountedProduct(String productName, int productPrice, int discount) {
-        productBasket.add(new DiscountedProduct(productName,productPrice,discount));
+        productBasket.add( new DiscountedProduct(productName, productPrice, discount));
+
     }
 
     public void addFixPriceProduct(String productName) {
-        productBasket.add(new FixPriceProduct(productName));
+        productBasket.add( new FixPriceProduct(productName));
     }
 
     public int allProductsPrise() {
         int sum = 0;
-        for (int i = 0; i < productBasket.size(); i++) {
-            sum += productBasket.get(i).getProductPrice();
+        for (Product element:productBasket) {
+            sum += element.getProductPrice();
         }
         return sum;
     }
 
     public void printAllProducts() {
-        if (productBasket.isEmpty()){
-            System.out.println("Корзина пустая!");
-            return;
-        }
-        for (int i = 0; i < productBasket.size(); i++) {
-            System.out.println(productBasket.get(i).toString());
+        for (Product element:productBasket) {
+            System.out.println(element.toString());
         }
     }
 
     public boolean checkProductByName(String productName) {
-        for (int i = 0; i < productBasket.size(); i++) {
-            if (productBasket.get(i).getProductName().equals(productName)) {
+        for (Product element:productBasket) {
+            if (element.getProductName().equals(productName)) {
                 return true;
             }
         }
@@ -57,32 +54,31 @@ public class ProductBasket {
     }
 
     public void cleanProductBasket() {
-        while(!productBasket.isEmpty()){
-            productBasket.removeFirst();
+        for (Product element:productBasket) {
+            element = null;
         }
-    }
-
-    public List<Product> removeProductsByName (String name){
-        Iterator<Product> iterator = productBasket.iterator();
-        List<Product> result = new ArrayList<>();
-
-        while (iterator.hasNext()){
-            Product element = iterator.next();
-            if (element.getProductName().equals(name)){
-                result.add(element);
-            }
-        }
-        return result;
     }
 
     public int countOfSpecialProducts() {
         int count = 0;
-        for (int i = 0; i < productBasket.size(); i++) {
-            if (productBasket.get(i).isSpecial()) {
+        for (Product element:productBasket) {
+            if (element.isSpecial()) {
                 count++;
             }
         }
         return count;
     }
 
+    public List<Product> removeProductsByName(String name){
+        List<Product> result = new LinkedList<>();
+        Iterator<Product> iterator = productBasket.iterator();
+        while (iterator.hasNext()){
+            Product element=iterator.next();
+            if (element.getProductName().equals(name)){
+                result.add(element);
+            }
+        }
+        productBasket.removeAll(result);
+        return result;
+    }
 }
