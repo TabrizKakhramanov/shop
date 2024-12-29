@@ -2,53 +2,47 @@ package org.skypro.skyshop.search;
 
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 
-public class SearchEngine {
-    private Searchable[] searchables;
-    private int id;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
-    public SearchEngine(int size) {
-        searchables = new Searchable[size];
+public class SearchEngine {
+    private List<Searchable> searchables;
+
+    public SearchEngine() {
+        searchables = new LinkedList<>();
     }
 
-    public Searchable[] search(String term) {
-        Searchable[] results = new Searchable[5];
+    public List<Searchable> search(String term) {
+        List<Searchable> results = new ArrayList<>();
         int k = 0;
-        for (int i = 0; i < searchables.length; i++) {
-            if (searchables[i] != null && searchables[i].getSearchTerm().contains(term)) {
-                results[k] = searchables[i];
-                k++;
-            }
-            if (k >= results.length) {
-                break;
+        for (Searchable e:searchables) {
+            if (e != null && e.getSearchTerm().contains(term)) {
+                results.add(e);
             }
         }
         return results;
     }
 
     public void add(Searchable searchable) {
-        if (id < searchables.length) {
-            searchables[id] = searchable;
-            id++;
-        } else {
-            System.out.println("Невозможно добавить элемент для поиска.");
-        }
+        searchables.add(searchable);
     }
 
     public Searchable searchTheBest(String search) throws BestResultNotFound {
         int finalCount = 0;
         Searchable result = null;
-        for (int i = 0; i < id; i++) {
+        for (Searchable e:searchables) {
             int index = 0;
             int count = 0;
-            int substringIndex = searchables[i].getSearchTerm().indexOf(search, index);
+            int substringIndex = e.getSearchTerm().indexOf(search, index);
             while (substringIndex != -1) {
                 count++;
                 index = index + search.length();
-                substringIndex = searchables[i].getSearchTerm().indexOf(search, index);
+                substringIndex = e.getSearchTerm().indexOf(search, index);
             }
             if (finalCount < count) {
                 finalCount = count;
-                result = searchables[i];
+                result = e;
             }
         }
         if (result == null) {

@@ -9,6 +9,7 @@ import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.SearchEngine;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class App {
@@ -50,7 +51,7 @@ public class App {
         System.out.println(productBasket.checkProductByName("milk"));
 
 
-        SearchEngine searchEngine = new SearchEngine(10);
+        SearchEngine searchEngine = new SearchEngine();
 
         //создаем объекты классов наследников Product
         SimpleProduct milk = new SimpleProduct("milk", 90);
@@ -75,10 +76,12 @@ public class App {
         searchEngine.add(article2);
 
         //проверка поиска
-        System.out.println(Arrays.toString(searchEngine.search("banana")));
-        System.out.println(Arrays.toString(searchEngine.search("milk")));
+        System.out.println(searchEngine.search("banana"));
+        System.out.println(searchEngine.search("milk"));
 
         //проверка работы выброса исключений
+        System.out.println(" ");
+        System.out.println("ИСКЛЮЧЕНИЯ ДЗ:");
         try {
             SimpleProduct potato = new SimpleProduct("  ", 100);
         } catch (IllegalArgumentException e){
@@ -101,5 +104,33 @@ public class App {
         } catch (BestResultNotFound e) {
             System.out.println("Нет совпадений!");
         }
+
+        //Листы дз
+        System.out.println(" ");
+        System.out.println("ЛИСТЫ ДЗ:");
+
+        ProductBasket basket = new ProductBasket();
+        basket.addProduct("banana",100);
+        basket.addProduct("avocado",90);
+        basket.addProduct("pringles",150);
+        basket.addProduct("pen", 30);
+        basket.addDiscountedProduct("bread",100,40);
+        basket.addDiscountedProduct("beer", 200,15);
+        basket.addFixPriceProduct("pen");
+        basket.addFixPriceProduct("pencil");
+        basket.addFixPriceProduct("banana");
+
+        basket.printAllProducts();
+        System.out.println("Удаленные продукты: " + basket.removeProductsByName("beer"));
+        System.out.println("Удаленные продукты: " +basket.removeProductsByName("pen"));
+        System.out.println("Удаленные продукты: " +basket.removeProductsByName("banana"));
+        System.out.println("После удаления!");
+        basket.printAllProducts();
+
+        System.out.println(basket.removeProductsByName("pen"));
+        if (basket.removeProductsByName("pen").isEmpty()){
+            System.out.println("Список пуст!");
+        }
+
     }
 }
