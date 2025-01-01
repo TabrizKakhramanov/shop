@@ -5,80 +5,78 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ProductBasket {
-    private List<Product> productBasket;
+    private Map<String,List<Product>> productBasket;
 
     public ProductBasket() {
-        productBasket = new LinkedList<>();
+        productBasket = new HashMap<>();
     }
 
-    public void addProduct(String productName, int productPrice) {
-        productBasket.add(new SimpleProduct(productName,productPrice));
-    }
-
-    public void addDiscountedProduct(String productName, int productPrice, int discount) {
-        productBasket.add( new DiscountedProduct(productName, productPrice, discount));
-
-    }
-
-    public void addFixPriceProduct(String productName) {
-        productBasket.add( new FixPriceProduct(productName));
+    public void addProduct(String keyName, List<Product> products) {
+        productBasket.put(keyName,products);
     }
 
     public int allProductsPrise() {
         int sum = 0;
-        for (Product element:productBasket) {
-            sum += element.getProductPrice();
+        //итерируемся по значениям Мапа
+        for (List<Product> personProducts: productBasket.values()){
+            //итерируемся по элементам каждого значения (т.к. значение - Лист)
+            for (Product element:personProducts) {
+                sum += element.getProductPrice();
+            }
         }
         return sum;
     }
 
     public void printAllProducts() {
-        for (Product element:productBasket) {
-            System.out.println(element.toString());
+        for (List<Product> personProducts: productBasket.values()) {
+            for (Product element : personProducts) {
+                System.out.println(element.toString());
+            }
         }
     }
 
-    public boolean checkProductByName(String productName) {
-        for (Product element:productBasket) {
-            if (element.getProductName().equals(productName)) {
-                return true;
+    public boolean checkProductByProductsName(String productName) {
+        for(List<Product> personProducts: productBasket.values()) {
+            for (Product element : personProducts) {
+                if (element.getProductName().equals(productName)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public void cleanProductBasket() {
-        for (Product element:productBasket) {
-            element = null;
-        }
+        productBasket.clear();
     }
 
     public int countOfSpecialProducts() {
         int count = 0;
-        for (Product element:productBasket) {
-            if (element.isSpecial()) {
-                count++;
+        for(List<Product> personProducts:productBasket.values()) {
+            for (Product element : personProducts) {
+                if (element.isSpecial()) {
+                    count++;
+                }
             }
         }
         return count;
     }
 
-    public List<Product> removeProductsByName(String name){
+    public List<Product> removeProductsByProductsName(String name){
         List<Product> result = new LinkedList<>();
-        Iterator<Product> iterator = productBasket.iterator();
-        while (iterator.hasNext()){
-            Product element=iterator.next();
-            if (element.getProductName().equals(name)){
-                result.add(element);
+        for(List<Product> personProducts:productBasket.values()) {
+            Iterator<Product> iterator = personProducts.iterator();
+            while (iterator.hasNext()) {
+                Product element = iterator.next();
+                if (element.getProductName().equals(name)) {
+                    result.add(element);
+                }
             }
+            personProducts.removeAll(result);
         }
-        productBasket.removeAll(result);
         return result;
     }
 }
