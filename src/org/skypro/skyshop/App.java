@@ -11,20 +11,37 @@ import org.skypro.skyshop.search.SearchEngine;
 
 import java.sql.SQLOutput;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
         ProductBasket productBasket = new ProductBasket();
 
-        //добавление продукта в корзину
-        productBasket.addProduct("milk", 90);
-        productBasket.addProduct("chocolate", 60);
-        productBasket.addDiscountedProduct("water", 40, 15);
-        productBasket.addFixPriceProduct("tomatoes");
-        productBasket.addProduct("meat", 650);
+        //создание объектов продуктов
+        SimpleProduct milk = new SimpleProduct("milk", 90);
+        SimpleProduct milk2 = new SimpleProduct("milk2", 190);
+        SimpleProduct milk3 = new SimpleProduct("milk3", 290);
+        FixPriceProduct banana = new FixPriceProduct("banana");
+        DiscountedProduct chocolate = new DiscountedProduct("chocolate", 90, 30);
+
+        //создание списков объектов продуктов и их заполнение
+        List<Product> products1 = new LinkedList<>();
+        List<Product> products2 = new LinkedList<>();
+        List<Product> products3 = new LinkedList<>();
+
+        products1.add(milk);
+        products1.add(banana);
+        products2.add(milk2);
+        products2.add(chocolate);
+        products3.add(chocolate);
+        products3.add(milk3);
+
 
         //добавление продукта в заполненную корзину
-        productBasket.addProduct("juice", 80);
+        productBasket.addProduct("Dima", products1);
+        productBasket.addProduct("Nikita", products2);
+        productBasket.addProduct("Egor", products3);
 
         //печать содержимого корзины
         productBasket.printAllProducts();
@@ -33,10 +50,13 @@ public class App {
         System.out.println(productBasket.allProductsPrise());
 
         //поиск товара, который есть в корзине
-        System.out.println(productBasket.checkProductByName("tomatoes"));
+        System.out.println(productBasket.checkProductByProductsName("tomatoes"));
 
         //поиск товара, которого нет в корзине
-        System.out.println(productBasket.checkProductByName("alcohol"));
+        System.out.println(productBasket.checkProductByProductsName("alcohol"));
+
+        //количество особенных товаров
+        System.out.println("Количество особенных твоаров: "+productBasket.countOfSpecialProducts());
 
         //очистка корзины
         productBasket.cleanProductBasket();
@@ -48,17 +68,10 @@ public class App {
         System.out.println(productBasket.allProductsPrise());
 
         //поиск товара по имени в пустой корзине
-        System.out.println(productBasket.checkProductByName("milk"));
+        System.out.println(productBasket.checkProductByProductsName("milk"));
 
 
         SearchEngine searchEngine = new SearchEngine();
-
-        //создаем объекты классов наследников Product
-        SimpleProduct milk = new SimpleProduct("milk", 90);
-        SimpleProduct milk2 = new SimpleProduct("milk2", 190);
-        SimpleProduct milk3 = new SimpleProduct("milk3", 290);
-        FixPriceProduct banana = new FixPriceProduct("banana");
-        DiscountedProduct chocolate = new DiscountedProduct("chocolate", 90, 30);
 
         //добавляем ранее созданные товары в массив для поиска
         searchEngine.add(milk);
@@ -76,8 +89,10 @@ public class App {
         searchEngine.add(article2);
 
         //проверка поиска
+        System.out.println("Проверка поиска:");
         System.out.println(searchEngine.search("banana"));
         System.out.println(searchEngine.search("milk"));
+
 
         //проверка работы выброса исключений
         System.out.println(" ");
@@ -110,25 +125,16 @@ public class App {
         System.out.println("ЛИСТЫ ДЗ:");
 
         ProductBasket basket = new ProductBasket();
-        basket.addProduct("banana",100);
-        basket.addProduct("avocado",90);
-        basket.addProduct("pringles",150);
-        basket.addProduct("pen", 30);
-        basket.addDiscountedProduct("bread",100,40);
-        basket.addDiscountedProduct("beer", 200,15);
-        basket.addFixPriceProduct("pen");
-        basket.addFixPriceProduct("pencil");
-        basket.addFixPriceProduct("banana");
 
         basket.printAllProducts();
-        System.out.println("Удаленные продукты: " + basket.removeProductsByName("beer"));
-        System.out.println("Удаленные продукты: " +basket.removeProductsByName("pen"));
-        System.out.println("Удаленные продукты: " +basket.removeProductsByName("banana"));
+        System.out.println("Удаленные продукты: " + basket.removeProductsByProductsName("beer"));
+        System.out.println("Удаленные продукты: " +basket.removeProductsByProductsName("pen"));
+        System.out.println("Удаленные продукты: " +basket.removeProductsByProductsName("banana"));
         System.out.println("После удаления!");
         basket.printAllProducts();
 
-        System.out.println(basket.removeProductsByName("pen"));
-        if (basket.removeProductsByName("pen").isEmpty()){
+        System.out.println(basket.removeProductsByProductsName("pen"));
+        if (basket.removeProductsByProductsName("pen").isEmpty()){
             System.out.println("Список пуст!");
         }
 
