@@ -3,6 +3,7 @@ package org.skypro.skyshop.search;
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
     private Set<Searchable> searchables;
@@ -12,13 +13,9 @@ public class SearchEngine {
     }
 
     public Set<Searchable> search(String term) {
-        Set<Searchable> results = new TreeSet<>(new SearchEngineComparator());
-        int k = 0;
-        for (Searchable e:searchables) {
-            if (e != null && e.getSearchTerm().contains(term)) {
-                results.add(e);
-            }
-        }
+        Set<Searchable> results = searchables.stream()
+                .filter(el->{return el!=null&&el.getSearchTerm().contains(term);})
+                .collect(Collectors.toCollection(()-> new TreeSet<>(new SearchEngineComparator())));
         return results;
     }
 

@@ -13,6 +13,7 @@ import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class App {
     public static void main(String[] args) {
@@ -53,7 +54,7 @@ public class App {
         System.out.println(productBasket.checkProductByProductsName("tomatoes"));
 
         //поиск товара, которого нет в корзине
-        System.out.println(productBasket.checkProductByProductsName("alcohol"));
+        System.out.println(productBasket.checkProductByProductsName("banana"));
 
         //количество особенных товаров
         System.out.println("Количество особенных твоаров: "+productBasket.countOfSpecialProducts());
