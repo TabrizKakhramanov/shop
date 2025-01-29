@@ -120,23 +120,8 @@ public class App {
             System.out.println("Нет совпадений!");
         }
 
-        //Листы дз
-        System.out.println(" ");
-        System.out.println("ЛИСТЫ ДЗ:");
+        //Сеты дз
 
-        ProductBasket basket = new ProductBasket();
-
-        basket.printAllProducts();
-        System.out.println("Удаленные продукты: " + basket.removeProductsByProductsName("beer"));
-        System.out.println("Удаленные продукты: " +basket.removeProductsByProductsName("pen"));
-        System.out.println("Удаленные продукты: " +basket.removeProductsByProductsName("banana"));
-        System.out.println("После удаления!");
-        basket.printAllProducts();
-
-        System.out.println(basket.removeProductsByProductsName("pen"));
-        if (basket.removeProductsByProductsName("pen").isEmpty()){
-            System.out.println("Список пуст!");
-        }
 
     }
 }
