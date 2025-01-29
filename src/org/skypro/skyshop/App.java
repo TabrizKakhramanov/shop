@@ -19,6 +19,7 @@ public class App {
     public static void main(String[] args) {
         ProductBasket productBasket = new ProductBasket();
 
+
         //создание объектов продуктов
         SimpleProduct milk = new SimpleProduct("milk", 90);
         SimpleProduct milk2 = new SimpleProduct("milk2", 190);
