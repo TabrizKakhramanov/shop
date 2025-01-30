@@ -6,77 +6,49 @@ import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProductBasket {
-    private Map<String,List<Product>> productBasket;
+    private Map<String, List<Product>> productBasket;
 
     public ProductBasket() {
         productBasket = new HashMap<>();
     }
 
     public void addProduct(String keyName, List<Product> products) {
-        productBasket.put(keyName,products);
+        productBasket.put(keyName, products);
     }
 
     public int allProductsPrise() {
-        int sum = 0;
-        //итерируемся по значениям Мапа
-        for (List<Product> personProducts: productBasket.values()){
-            //итерируемся по элементам каждого значения (т.к. значение - Лист)
-            for (Product element:personProducts) {
-                sum += element.getProductPrice();
-            }
-        }
+        int sum = productBasket.values().stream().flatMap(Collection::stream).mapToInt(el -> el.getProductPrice()).sum();
         return sum;
     }
 
     public void printAllProducts() {
-        for (List<Product> personProducts: productBasket.values()) {
-            for (Product element : personProducts) {
-                System.out.println(element.toString());
-            }
-        }
+        productBasket.values().stream().flatMap(el -> el.stream()).forEach(System.out::println);
     }
 
     public boolean checkProductByProductsName(String productName) {
-        for(List<Product> personProducts: productBasket.values()) {
-            for (Product element : personProducts) {
-                if (element.getProductName().equals(productName)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return productBasket.values().stream().flatMap(el -> el.stream()).anyMatch(el -> el.getProductName().equals(productName));
+
     }
 
     public void cleanProductBasket() {
         productBasket.clear();
     }
 
-    public int countOfSpecialProducts() {
-        int count = 0;
-        for(List<Product> personProducts:productBasket.values()) {
-            for (Product element : personProducts) {
-                if (element.isSpecial()) {
-                    count++;
-                }
-            }
-        }
+    public long countOfSpecialProducts() {
+        long count = productBasket.values().stream().flatMap(Collection::stream).filter(el -> el.isSpecial()).count();
         return count;
     }
 
-    public List<Product> removeProductsByProductsName(String name){
+    public List<Product> removeProductsByProductsName(String name) {
         List<Product> result = new LinkedList<>();
-        for(List<Product> personProducts:productBasket.values()) {
-            Iterator<Product> iterator = personProducts.iterator();
-            while (iterator.hasNext()) {
-                Product element = iterator.next();
-                if (element.getProductName().equals(name)) {
-                    result.add(element);
-                }
-            }
-            personProducts.removeAll(result);
-        }
+        productBasket.values().forEach(personProducts -> {
+            List<Product> deleted = personProducts.stream().filter(el -> el.getProductName().equals(name)).toList();
+            result.addAll(deleted);
+            personProducts.removeAll(deleted);
+        });
         return result;
     }
 }
